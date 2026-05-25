@@ -1,0 +1,32 @@
+export const state = {
+  duration: 30,
+  timeLeft: 30,
+  timerInterval: null,
+  isRunning: false,
+  isFinished: false,
+  textChars: [],
+  charElements: [],
+  currentIndex: 0,
+  correctCount: 0,
+  wrongCount: 0,
+  totalTyped: 0,
+  startTime: null,
+  language: 'en',
+  fingerMode: 10,
+  tabPressed: false,
+
+  wordsCorrect: 0,
+  wordsWrong: 0,
+  wordBoundaries: [],
+  currentWordHasError: false,
+  currentWordIndex: 0,
+
+  wordPerformance: [],
+
+  isGameMode: false,
+  gameTimeLeft: 60,
+  gameLastTick: null,
+  gameWordStart: 0,
+  difficulty: 'normal',
+  speedMultiplier: 1,
+};

@@ -18,7 +18,6 @@
 <body>
   <div class="app-container">
 
-    <!-- ═══════════ HEADER ═══════════ -->
     <header class="header" id="header">
       <div class="header-top">
         <div class="brand">
@@ -119,7 +118,6 @@
       </div>
     </header>
 
-    <!-- ═══════════ TEXT AREA ═══════════ -->
     <main class="typing-area" id="typingArea">
       <div class="text-display-wrapper">
         <div class="text-display" id="textDisplay"></div>
@@ -128,9 +126,8 @@
       <p class="hint-text" id="hintText">Mulai mengetik untuk memulai tes...</p>
     </main>
 
-    <!-- ═══════════ RESULT SECTION (inline, hidden by default) ═══════════ -->
     <section class="result-section" id="resultSection">
-      <!-- Stats Row -->
+      
       <div class="result-stats-row">
         <div class="result-hero">
           <span class="result-hero-value" id="resultWpm">0</span>
@@ -154,7 +151,6 @@
         </div>
       </div>
 
-      <!-- Chart -->
       <div class="result-chart-section">
         <div class="result-chart-header">
           <span class="result-chart-title">Performa Mengetik</span>
@@ -170,7 +166,6 @@
         <canvas id="resultChart" width="900" height="260"></canvas>
       </div>
 
-      <!-- Restart -->
       <div class="result-actions">
         <button class="restart-btn" id="restartBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
@@ -182,10 +177,9 @@
       </div>
     </section>
 
-    <!-- ═══════════ VIRTUAL KEYBOARD ═══════════ -->
     <section class="keyboard-section" id="keyboardSection">
       <div class="keyboard" id="virtualKeyboard">
-        <!-- Row 1: Number row -->
+        
         <div class="kb-row">
           <div class="key" data-key="`"><span>`</span></div>
           <div class="key" data-key="1"><span>1</span></div>
@@ -202,7 +196,7 @@
           <div class="key" data-key="="><span>=</span></div>
           <div class="key key-backspace" data-key="Backspace"><span>⌫</span></div>
         </div>
-        <!-- Row 2: QWERTY -->
+        
         <div class="kb-row">
           <div class="key key-tab" data-key="Tab"><span>Tab</span></div>
           <div class="key finger-pinky-l" data-key="q"><span>Q</span></div>
@@ -219,7 +213,7 @@
           <div class="key" data-key="]"><span>]</span></div>
           <div class="key key-backslash" data-key="\"><span>\</span></div>
         </div>
-        <!-- Row 3: Home row -->
+        
         <div class="kb-row">
           <div class="key key-caps" data-key="CapsLock"><span>Caps</span></div>
           <div class="key finger-pinky-l home-key" data-key="a"><span>A</span></div>
@@ -235,7 +229,7 @@
           <div class="key" data-key="'"><span>'</span></div>
           <div class="key key-enter" data-key="Enter"><span>Enter</span></div>
         </div>
-        <!-- Row 4: Bottom row -->
+        
         <div class="kb-row">
           <div class="key key-shift-l" data-key="ShiftLeft"><span>Shift</span></div>
           <div class="key finger-pinky-l" data-key="z"><span>Z</span></div>
@@ -250,7 +244,7 @@
           <div class="key" data-key="/"><span>/</span></div>
           <div class="key key-shift-r" data-key="ShiftRight"><span>Shift</span></div>
         </div>
-        <!-- Row 5: Space bar -->
+        
         <div class="kb-row">
           <div class="key key-ctrl" data-key="ControlLeft"><span>Ctrl</span></div>
           <div class="key key-alt" data-key="AltLeft"><span>Alt</span></div>
@@ -261,14 +255,12 @@
       </div>
     </section>
 
-    <!-- ═══════════ FOOTER ═══════════ -->
     <footer class="footer">
       <p>Tekan <kbd>Esc</kbd> untuk mulai ulang · Tekan <kbd>Esc</kbd> saat tes berjalan untuk menyelesaikan</p>
     </footer>
 
   </div>
 
-  <script src="script.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
-
 </html>

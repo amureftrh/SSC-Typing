@@ -1,35 +1,27 @@
-/* ═══════════════════════════════════════════════════════════════
-   TypeFlow — Touch Typing Test
-   CSS Design System — Dark Premium Theme
-   ═══════════════════════════════════════════════════════════════ */
 
-/* ─── CSS Variables ─── */
+
 :root {
-  /* Base palette */
+  
   --bg-primary: #0b0d14;
   --bg-secondary: #12141f;
   --bg-tertiary: #1a1d2e;
   --bg-elevated: #1f2335;
   --bg-glass: rgba(18, 20, 31, 0.88);
 
-  /* Surface colors */
   --surface-key: #181b2a;
   --surface-key-hover: #22263d;
   --surface-key-active: #3a3f5c;
 
-  /* Text colors */
   --text-primary: #e8eaf2;
   --text-secondary: #8b8fa7;
   --text-muted: #4e5268;
   --text-dim: #363a50;
 
-  /* Accent colors */
   --accent-primary: #7c5cfc;
   --accent-primary-glow: rgba(124, 92, 252, 0.25);
   --accent-secondary: #5ce1e6;
   --accent-secondary-glow: rgba(92, 225, 230, 0.2);
 
-  /* Semantic colors */
   --color-correct: #5dffa0;
   --color-correct-glow: rgba(93, 255, 160, 0.15);
   --color-correct-bg: rgba(93, 255, 160, 0.06);
@@ -39,7 +31,6 @@
   --color-current: #ffd166;
   --color-current-glow: rgba(255, 209, 102, 0.3);
 
-  /* Finger zone colors (subtle tints for key backgrounds) */
   --finger-pinky-l: rgba(255, 107, 129, 0.08);
   --finger-ring-l: rgba(255, 166, 77, 0.08);
   --finger-middle-l: rgba(255, 209, 102, 0.08);
@@ -49,71 +40,60 @@
   --finger-ring-r: rgba(255, 166, 77, 0.08);
   --finger-pinky-r: rgba(255, 107, 129, 0.08);
 
-  /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 
-  /* Sizing */
   --key-size: 48px;
   --key-gap: 5px;
   --key-radius: 10px;
   --border-radius: 16px;
 
-  /* Borders & Shadows */
   --card-border: 1px solid rgba(255, 255, 255, 0.05);
   --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   --key-border: 1px solid rgba(255, 255, 255, 0.05);
   --key-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 
-  /* Transitions */
   --transition-fast: 80ms ease;
   --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ─── Light Mode Variables ─── */
 [data-theme="light"] {
-  /* Base palette */
+  
   --bg-primary: #f8fafc; 
   --bg-secondary: #ffffff;
   --bg-tertiary: #f1f5f9;
   --bg-elevated: #e2e8f0;
   --bg-glass: rgba(255, 255, 255, 0.88);
 
-  /* Borders & Shadows */
   --card-border: 1px solid rgba(0, 0, 0, 0.03);
   --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.03), 0 4px 10px rgba(0, 0, 0, 0.02);
   --key-border: 1px solid rgba(0, 0, 0, 0.06);
   --key-shadow: 0 2px 5px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.02);
 
-  /* Surface colors */
   --surface-key: #ffffff;
   --surface-key-hover: #f1f5f9;
   --surface-key-active: #e2e8f0;
 
-  /* Text colors */
   --text-primary: #0f172a;
   --text-secondary: #475569;
   --text-muted: #64748b;
   --text-dim: #94a3b8;
 
-  /* Accent colors */
-  --accent-primary: #6366f1; /* Indigo */
+  --accent-primary: #6366f1; 
   --accent-primary-glow: rgba(99, 102, 241, 0.25);
-  --accent-secondary: #0ea5e9; /* Light blue */
+  --accent-secondary: #0ea5e9; 
   --accent-secondary-glow: rgba(14, 165, 233, 0.2);
 
-  /* Semantic colors */
-  --color-correct: #10b981; /* Emerald */
+  --color-correct: #10b981; 
   --color-correct-glow: rgba(16, 185, 129, 0.15);
   --color-correct-bg: rgba(16, 185, 129, 0.1);
-  --color-wrong: #ef4444; /* Red */
+  --color-wrong: #ef4444; 
   --color-wrong-glow: rgba(239, 68, 68, 0.2);
   --color-wrong-bg: rgba(239, 68, 68, 0.1);
-  --color-current: #f59e0b; /* Amber */
+  --color-current: #f59e0b; 
   --color-current-glow: rgba(245, 158, 11, 0.3);
 
-  /* Finger zone colors (subtle tints for key backgrounds) */
   --finger-pinky-l: rgba(239, 68, 68, 0.08);
   --finger-ring-l: rgba(245, 158, 11, 0.08);
   --finger-middle-l: rgba(234, 179, 8, 0.08);
@@ -124,7 +104,6 @@
   --finger-pinky-r: rgba(236, 72, 153, 0.08);
 }
 
-/* ─── Reset & Base ─── */
 *,
 *::before,
 *::after {
@@ -148,7 +127,6 @@ body {
   position: relative;
 }
 
-/* Multi-layer gradient background */
 body::before {
   content: '';
   position: fixed;
@@ -161,7 +139,6 @@ body::before {
   z-index: 0;
 }
 
-/* Noise texture overlay */
 body::after {
   content: '';
   position: fixed;
@@ -172,7 +149,6 @@ body::after {
   opacity: 0.5;
 }
 
-/* ─── App Container ─── */
 .app-container {
   position: relative;
   z-index: 1;
@@ -186,7 +162,6 @@ body::after {
   margin: 0 auto;
 }
 
-/* ═══════════ HEADER ═══════════ */
 .header {
   width: 100%;
   display: flex;
@@ -194,7 +169,6 @@ body::after {
   gap: 14px;
 }
 
-/* ─── Header Top: Brand + Controls ─── */
 .header-top {
   display: flex;
   align-items: center;
@@ -226,7 +200,6 @@ body::after {
   letter-spacing: -0.5px;
 }
 
-/* Theme Toggle Button */
 .theme-toggle {
   display: flex;
   align-items: center;
@@ -265,7 +238,6 @@ body::after {
   transform: translateY(0) rotate(0);
 }
 
-/* Light Mode specific toggle states */
 [data-theme="light"] .theme-toggle .sun-icon {
   opacity: 1;
   transform: translateY(0) rotate(0);
@@ -276,7 +248,6 @@ body::after {
   transform: translateY(-20px) rotate(90deg);
 }
 
-/* Controls group */
 .controls-group {
   display: flex;
   align-items: center;
@@ -284,7 +255,6 @@ body::after {
   flex-wrap: wrap;
 }
 
-/* Language selector */
 .lang-selector {
   display: flex;
   gap: 3px;
@@ -328,7 +298,6 @@ body::after {
   box-shadow: 0 2px 12px var(--accent-secondary-glow);
 }
 
-/* Timer selector */
 .timer-selector {
   display: flex;
   gap: 3px;
@@ -364,7 +333,6 @@ body::after {
   box-shadow: 0 2px 12px var(--accent-primary-glow);
 }
 
-/* Custom Select Dropdown */
 .custom-select {
   position: relative;
   font-family: var(--font-sans);
@@ -395,7 +363,6 @@ body::after {
   color: var(--text-primary);
 }
 
-/* Arrow inside selected item */
 .select-selected::after {
   content: "";
   width: 0;
@@ -406,7 +373,6 @@ body::after {
   transition: transform 0.3s ease;
 }
 
-/* Arrow points up when dropdown is open */
 .select-selected.select-arrow-active::after {
   transform: rotate(180deg);
 }
@@ -448,7 +414,6 @@ body::after {
   display: none !important;
 }
 
-/* ─── Stats Bar ─── */
 .stats-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -540,7 +505,6 @@ body::after {
 #statWpm .stat-value { color: var(--accent-primary); }
 #statAccuracy .stat-value { color: var(--accent-secondary); }
 
-/* ═══════════ TYPING AREA ═══════════ */
 .typing-area {
   width: 100%;
   background: var(--bg-secondary);
@@ -573,17 +537,16 @@ body::after {
 .text-display-wrapper {
   position: relative;
   overflow: hidden;
-  /* Exactly 3 lines tall: font-size 1.25rem × line-height 2.2 = ~2.75rem per line × 3 */
+  
   height: calc(1.25rem * 2.2 * 3);
 }
 
-/* Active-line highlight stripe — sits on baris ke-2 */
 .text-display-wrapper::before {
   content: '';
   position: absolute;
   left: -36px;
   right: -36px;
-  /* top of stripe = 1 line height down from top */
+  
   top: calc(1.25rem * 2.2 * 1);
   height: calc(1.25rem * 2.2);
   background: rgba(124, 92, 252, 0.04);
@@ -604,19 +567,16 @@ body::after {
   user-select: none;
 }
 
-/* Word wrapper — prevents words from breaking across lines */
 .word {
   display: inline-block;
   white-space: nowrap;
 }
 
-/* Space between words — allows line breaks at spaces */
 .space-char {
   display: inline;
   white-space: normal;
 }
 
-/* Fade bottom — upcoming lines fade out going downward */
 .text-display-fade-bottom {
   position: absolute;
   bottom: 0;
@@ -628,7 +588,6 @@ body::after {
   z-index: 2;
 }
 
-/* Character styling */
 .char {
   position: relative;
   border-radius: 3px;
@@ -680,7 +639,6 @@ body::after {
   transform: translateY(-4px);
 }
 
-/* ═══════════ RESULT SECTION (inline) ═══════════ */
 .result-section {
   display: none;
   width: 100%;
@@ -693,7 +651,6 @@ body::after {
   display: flex;
 }
 
-/* Stats row — CSS Grid for perfect alignment */
 .result-stats-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
@@ -766,7 +723,6 @@ body::after {
 .result-val-correct { color: var(--color-correct) !important; }
 .result-val-wrong { color: var(--color-wrong) !important; }
 
-/* Chart Section */
 .result-chart-section {
   background: var(--bg-secondary);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -831,14 +787,12 @@ body::after {
   border-radius: 8px;
 }
 
-/* Actions row */
 .result-actions {
   display: flex;
   justify-content: center;
   padding-top: 4px;
 }
 
-/* Restart button */
 .restart-btn {
   display: inline-flex;
   align-items: center;
@@ -865,7 +819,6 @@ body::after {
   transform: translateY(0);
 }
 
-/* ═══════════ VIRTUAL KEYBOARD ═══════════ */
 .keyboard-section {
   width: 100%;
 }
@@ -886,7 +839,6 @@ body::after {
   gap: var(--key-gap);
 }
 
-/* Key base style */
 .key {
   display: flex;
   flex-direction: column;
@@ -918,12 +870,10 @@ body::after {
   z-index: 1;
 }
 
-/* Key hover */
 .key:hover {
   background: var(--surface-key-hover);
 }
 
-/* Key active (pressed) */
 .key.active {
   background: var(--accent-primary) !important;
   border-bottom-width: 1px;
@@ -937,7 +887,6 @@ body::after {
   color: #fff !important;
 }
 
-/* Ripple effect on press */
 .key.active::after {
   content: '';
   position: absolute;
@@ -951,7 +900,6 @@ body::after {
   to { opacity: 0; transform: scale(1.5); }
 }
 
-/* Home row indicator */
 .home-key::before {
   content: '';
   position: absolute;
@@ -965,7 +913,6 @@ body::after {
   opacity: 0.6;
 }
 
-/* Finger zone colors */
 .finger-pinky-l { background: linear-gradient(to bottom, var(--finger-pinky-l), var(--surface-key)); }
 .finger-ring-l { background: linear-gradient(to bottom, var(--finger-ring-l), var(--surface-key)); }
 .finger-middle-l { background: linear-gradient(to bottom, var(--finger-middle-l), var(--surface-key)); }
@@ -975,7 +922,6 @@ body::after {
 .finger-ring-r { background: linear-gradient(to bottom, var(--finger-ring-r), var(--surface-key)); }
 .finger-pinky-r { background: linear-gradient(to bottom, var(--finger-pinky-r), var(--surface-key)); }
 
-/* Dimmed keys — used for keys outside the active finger zone */
 .key.dimmed {
   opacity: 0.25;
   filter: grayscale(1);
@@ -986,13 +932,11 @@ body::after {
   opacity: 0.35;
 }
 
-/* Zone-active keys — subtle highlight for keys in the active finger zone */
 .key.zone-active {
   border-color: rgba(245, 158, 11, 0.3);
   box-shadow: 0 0 8px rgba(245, 158, 11, 0.1);
 }
 
-/* Wide keys */
 .key-backspace { width: calc(var(--key-size) * 1.8 + var(--key-gap)); }
 .key-tab { width: calc(var(--key-size) * 1.4 + var(--key-gap)); }
 .key-backslash { width: calc(var(--key-size) * 1.4 + var(--key-gap)); }
@@ -1011,7 +955,6 @@ body::after {
   background: var(--accent-primary) !important;
 }
 
-/* ═══════════ FOOTER ═══════════ */
 .footer {
   padding: 8px 0 4px;
 }
@@ -1034,7 +977,6 @@ body::after {
   margin: 0 2px;
 }
 
-/* ═══════════ RESPONSIVE ═══════════ */
 @media (max-width: 900px) {
   .app-container {
     padding: 16px;
@@ -1086,7 +1028,6 @@ body::after {
     font-size: 0.52rem;
   }
 
-  /* Result section responsive */
   .result-stats-row {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 5px;
@@ -1152,7 +1093,6 @@ body::after {
   }
 }
 
-/* ═══════════ GAME MODE TIMER FLASH ═══════════ */
 .timer-flash-correct {
   animation: timerFlashGreen 0.6s ease-out;
 }
@@ -1171,13 +1111,11 @@ body::after {
   100% { border-color: rgba(255, 255, 255, 0.04); box-shadow: none; }
 }
 
-/* Game mode button style */
 .timer-btn[data-time="game"] {
   font-weight: 700;
   letter-spacing: 0.5px;
 }
 
-/* ═══════════ ANIMATIONS ═══════════ */
 @keyframes fadeInUp {
   from {
     opacity: 0;

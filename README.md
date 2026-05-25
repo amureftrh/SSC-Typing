@@ -25,15 +25,16 @@ Aplikasi ini menonjolkan desain *glassmorphism* modern, kinerja kilat, serta pen
 
 ## 🚀 Cara Menjalankan
 
-Karena proyek ini 100% *Vanilla Front-end*, instalasi sangat mudah:
+Karena proyek ini menggunakan fitur canggih **ES Modules** bawaan JavaScript standar, alasan keamanan browser (*CORS policy*) mengharuskan file HTML diakses melalui server lokal HTTP, bukan sekadar klik dua kali (`file://`).
 
 1. Clone repositori ini ke komputer lokal Anda:
    ```bash
    git clone https://github.com/amureftrh/SSC-Typing.git
    ```
-2. Buka folder proyek.
-3. Jalankan file `index.html` menggunakan browser modern apa pun (Chrome, Firefox, Safari, Edge, Zen Browser).
-   - *Tip:* Anda juga dapat menggunakan ekstensi **Live Server** di VS Code untuk pengalaman pengembangan yang lebih baik (Otomatis *refresh* setiap menyimpan perubahan).
+2. Buka folder proyek di **Visual Studio Code**.
+3. Pastikan Anda sudah menginstal ekstensi **Live Server**.
+4. Klik kanan pada file `index.html` dan pilih **"Open with Live Server"**.
+5. Browser akan terbuka otomatis di alamat `http://localhost:5500` atau sejenisnya.
 
 ---
 
@@ -47,9 +48,19 @@ Karena proyek ini 100% *Vanilla Front-end*, instalasi sangat mudah:
 
 ## 🛠️ Arsitektur Kode
 
+Aplikasi ini menggunakan pola arsitektur **Modular ES6** murni untuk memastikan kode dapat dikelola dengan standar industri, tanpa *bundler* seperti Webpack:
+
 - **`index.html`**: Struktur semantik kerangka aplikasi.
-- **`style.css`**: Sistem desain absolut. Menggunakan variabel CSS untuk manajemen tema, kueri ukuran *container*, dan animasi performa tinggi (*hardware-accelerated CSS properties*).
-- **`script.js`**: Otak aplikasi. Terbagi ke dalam state machine, DOM selector, modul waktu, modul penghitung statistik, dan penganan input *focus-trap* asinkron.
+- **`style.css`**: Sistem desain absolut dengan manajemen tema dinamis dan animasi performa tinggi.
+- **`js/`**:
+  - `main.js`: *Entry point*, merangkum seluruh inisiasi sistem dan interaksi *event listener*.
+  - `engine.js`: Inti logika permainan, meliputi generator kata, sistem perhitungan *timer*, dan kalkulasi animasi matriks *scrolling*.
+  - `state.js`: Manajemen *state* aplikasi murni.
+  - `dom.js`: Sentralisasi seleksi semua elemen Document Object Model.
+  - `chart.js`: Renderer khusus untuk melukis grafik analitik ke dalam `<canvas>` tanpa menggunakan pustaka eksternal.
+  - `keyboard.js`: Animasi dan fungsionalitas tuts virtual 10-jari.
+  - `ui.js`: Pengelola *feedback* visual mikro (animasi skor, efek lampu indikator).
+  - `data.js`: Bank data kosa kata dan peta pemetaan tombol.
 
 ---
 
