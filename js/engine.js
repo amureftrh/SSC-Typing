@@ -84,7 +84,7 @@ export function renderText() {
     if (wordIdx < words.length - 1) {
       const spaceSpan = document.createElement('span');
       spaceSpan.classList.add('char', 'space-char');
-      spaceSpan.textContent = '\u00A0';
+      spaceSpan.textContent = ' ';
       if (charIndex === 0) spaceSpan.classList.add('current');
       dom.textDisplay.appendChild(spaceSpan);
       state.charElements.push(spaceSpan);
