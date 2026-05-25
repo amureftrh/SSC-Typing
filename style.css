@@ -543,6 +543,7 @@ body::after {
 
 .text-display-wrapper::before {
   content: '';
+  display: none; /* User requested to hide this active line highlight container */
   position: absolute;
   left: -36px;
   right: -36px;

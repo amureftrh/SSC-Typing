@@ -37,14 +37,14 @@ focusTrap.addEventListener('keydown', (e) => {
     return;
   }
 
-  if (e.code === 'Space' && state.isGameMode) {
-    return;
-  }
-
-  if (e.code === 'Enter' && state.isGameMode && state.isRunning) {
+  if ((e.code === 'Space' || e.code === 'Enter') && state.isGameMode && state.isRunning) {
     e.preventDefault();
     submitWordGameMode();
     highlightKey(e.code, true);
+    return;
+  }
+
+  if (e.code === 'Space' && state.isGameMode) {
     return;
   }
 

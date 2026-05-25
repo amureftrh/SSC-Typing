@@ -371,7 +371,7 @@ export function submitWordGameMode() {
     }
   }
 
-  state.speedMultiplier = 1 + (state.wordsWrong * 0.15);
+  state.speedMultiplier = 1 + (state.wordsWrong * 0.40);
 
   if (state.speedMultiplier > 1) {
     dom.speedBadge.classList.remove('hidden');
