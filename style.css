@@ -572,8 +572,25 @@ body::after {
 
 .text-display-wrapper {
   position: relative;
-  max-height: 140px;
   overflow: hidden;
+  /* Exactly 3 lines tall: font-size 1.25rem × line-height 2.2 = ~2.75rem per line × 3 */
+  height: calc(1.25rem * 2.2 * 3);
+}
+
+/* Active-line highlight stripe — sits on baris ke-2 */
+.text-display-wrapper::before {
+  content: '';
+  position: absolute;
+  left: -36px;
+  right: -36px;
+  /* top of stripe = 1 line height down from top */
+  top: calc(1.25rem * 2.2 * 1);
+  height: calc(1.25rem * 2.2);
+  background: rgba(124, 92, 252, 0.04);
+  border-top: 1px solid rgba(124, 92, 252, 0.08);
+  border-bottom: 1px solid rgba(124, 92, 252, 0.08);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .text-display {
@@ -599,16 +616,16 @@ body::after {
   white-space: normal;
 }
 
-/* Fade edges */
-.text-display-wrapper::after {
-  content: '';
+/* Fade bottom — upcoming lines fade out going downward */
+.text-display-fade-bottom {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 40px;
-  background: linear-gradient(transparent, var(--bg-secondary));
+  height: calc(1.25rem * 2.2 * 0.6);
+  background: linear-gradient(to top, var(--bg-secondary) 30%, transparent);
   pointer-events: none;
+  z-index: 2;
 }
 
 /* Character styling */

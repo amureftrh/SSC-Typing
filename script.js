@@ -279,26 +279,36 @@
         charIndex++;
       }
     });
+
+    // Reset scroll — start at the top, let scroll trigger naturally when user reaches row 3
+    dom.textDisplay.style.transform = 'translateY(0)';
   }
 
-  // ─── Scroll text display to keep cursor visible ───
+  // ─── Scroll text display — MonkeyType style ───
   function scrollTextToCurrentLine() {
     const currentEl = state.charElements[state.currentIndex];
     if (!currentEl) return;
 
-    const wrapper = dom.textDisplay.parentElement;
-    const wrapperRect = wrapper.getBoundingClientRect();
-    const charRect = currentEl.getBoundingClientRect();
-    const displayRect = dom.textDisplay.getBoundingClientRect();
-
-    // If the current character is below the visible area
-    const relativeTop = charRect.top - displayRect.top;
     const lineHeight = parseFloat(getComputedStyle(dom.textDisplay).lineHeight);
-    const maxVisibleTop = wrapperRect.height - lineHeight;
 
-    if (relativeTop > maxVisibleTop) {
-      const scrollAmount = relativeTop - lineHeight;
-      dom.textDisplay.style.transform = `translateY(-${scrollAmount}px)`;
+    // Both textDisplay and charElements are translated together,
+    // so their relative vertical distance is constant and absolute.
+    const displayRect = dom.textDisplay.getBoundingClientRect();
+    const charRect    = currentEl.getBoundingClientRect();
+    const charTopAbsolute = charRect.top - displayRect.top;
+
+    // Which row is the character on? (0-indexed: 0 = row 1, 1 = row 2, 2 = row 3...)
+    const charRow = Math.round(charTopAbsolute / lineHeight);
+
+    // Target offset: row 0 & 1 -> 0px. Row 2 and beyond -> shift up by (charRow - 1) lines
+    const targetOffset = charRow >= 2 ? (charRow - 1) * lineHeight : 0;
+
+    // Read the current translateY already applied to avoid jitter
+    const currentTransform = new DOMMatrix(getComputedStyle(dom.textDisplay).transform);
+    const currentOffset = -currentTransform.m42;
+
+    if (Math.abs(targetOffset - currentOffset) > 2) {
+      dom.textDisplay.style.transform = `translateY(-${targetOffset}px)`;
     }
   }
 
@@ -694,6 +704,13 @@
   function resetTest() {
     clearInterval(state.timerInterval);
 
+    // Blur any focused element in the next event loop tick to ensure Firefox/Zen Browser completes its default focus behavior first
+    setTimeout(() => {
+      if (document.activeElement && typeof document.activeElement.blur === 'function' && document.activeElement !== document.body) {
+        document.activeElement.blur();
+      }
+    }, 0);
+
     state.timeLeft = state.duration;
     state.timerInterval = null;
     state.isRunning = false;
@@ -932,23 +949,80 @@
     updateLiveStats();
   }
 
+  // ─── Hidden Focus Trap (Industry Standard Approach) ───
+  // A hidden, offscreen input element that permanently holds keyboard focus.
+  // This is how MonkeyType and other professional typing apps work.
+  // With focus locked to this element, the Tab key NEVER escapes to the
+  // browser chrome (Zen Browser sidebar, address bar, new tab button, etc.)
+  const focusTrap = document.createElement('input');
+  focusTrap.setAttribute('type', 'text');
+  focusTrap.setAttribute('autocomplete', 'off');
+  focusTrap.setAttribute('autocorrect', 'off');
+  focusTrap.setAttribute('autocapitalize', 'off');
+  focusTrap.setAttribute('spellcheck', 'false');
+  focusTrap.setAttribute('aria-hidden', 'true');
+  focusTrap.setAttribute('tabindex', '-1');
+  focusTrap.style.cssText = [
+    'position:fixed',
+    'top:-9999px',
+    'left:-9999px',
+    'width:1px',
+    'height:1px',
+    'opacity:0',
+    'pointer-events:none',
+    'border:none',
+    'outline:none',
+    'background:transparent',
+    'color:transparent',
+    'caret-color:transparent',
+  ].join(';');
+  document.body.appendChild(focusTrap);
+
+  function lockFocus() {
+    // Only focus if not already focused to avoid interrupting IME input
+    if (document.activeElement !== focusTrap) {
+      focusTrap.focus({ preventScroll: true });
+    }
+    // Keep the input empty to prevent browser autocomplete/spell check
+    focusTrap.value = '';
+  }
+
+  // Refocus when user clicks anywhere on the page (except control buttons)
+  document.addEventListener('click', (e) => {
+    // Let the click handler on control buttons fire first, then reclaim focus
+    setTimeout(lockFocus, 50);
+  });
+
+  // Refocus when the window regains focus
+  window.addEventListener('focus', lockFocus);
+
+  // Refocus when the document becomes visible again
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) lockFocus();
+  });
+
   // ─── Keyboard Event Listeners ───
-  document.addEventListener('keydown', (e) => {
-    // Prevent default for space, tab to avoid page scrolling, and backspace to avoid navigation
+  // All key events come from focusTrap, so Tab can never escape to browser UI
+  focusTrap.addEventListener('keydown', (e) => {
+    // Prevent default for Space, Tab, Backspace to block page scroll / browser navigation
     if (e.code === 'Space' || e.code === 'Tab' || e.code === 'Backspace') {
       e.preventDefault();
     }
 
-    // Tab+Enter restart shortcut
+    // Tab: just highlight the key, no reset logic (avoids browser interference entirely)
     if (e.code === 'Tab') {
-      state.tabPressed = true;
       highlightKey(e.code, true);
       return;
     }
 
-    if (e.code === 'Enter' && state.tabPressed) {
-      resetTest();
-      highlightKey(e.code, true);
+    // Escape: toggle between end test (if running) and restart (if finished/idle)
+    if (e.code === 'Escape') {
+      e.preventDefault();
+      if (state.isRunning) {
+        endTest();
+      } else {
+        resetTest();
+      }
       return;
     }
 
@@ -965,17 +1039,10 @@
       return;
     }
 
-    // Escape key: end test and show results (especially useful for unlimited mode)
-    if (e.code === 'Escape' && state.isRunning) {
-      e.preventDefault();
-      endTest();
-      return;
-    }
-
     // Highlight virtual key
     highlightKey(e.code, true);
 
-    // Don't process modifier keys, functional keys as typing input
+    // Don't process modifier keys / functional keys as typing input
     if (['ShiftLeft', 'ShiftRight', 'ControlLeft', 'ControlRight',
          'AltLeft', 'AltRight', 'CapsLock', 'Tab', 'Enter',
          'Backspace', 'Escape', 'Meta'].includes(e.code)) {
@@ -1038,17 +1105,16 @@
     }
   });
 
-  document.addEventListener('keyup', (e) => {
-    if (e.code === 'Tab') {
-      state.tabPressed = false;
-    }
+  focusTrap.addEventListener('keyup', (e) => {
     highlightKey(e.code, false);
   });
+
 
   // ─── Timer Selector ───
   dom.timerSelector.addEventListener('click', (e) => {
     const btn = e.target.closest('.timer-btn');
     if (!btn) return;
+    setTimeout(() => btn.blur(), 0);
 
     dom.timerSelector.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -1061,7 +1127,7 @@
       state.duration = parseInt(btn.dataset.time, 10);
     }
     resetTest();
-    btn.blur();
+    setTimeout(() => btn.blur(), 0);
   });
 
   // ─── Custom Difficulty Dropdown ───
@@ -1091,28 +1157,27 @@
   dom.langSelector.addEventListener('click', (e) => {
     const btn = e.target.closest('.lang-btn');
     if (!btn) return;
+    setTimeout(() => btn.blur(), 0);
 
     dom.langSelector.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
     state.language = btn.dataset.lang;
     resetTest();
-    btn.blur();
+    setTimeout(() => btn.blur(), 0);
   });
 
   // ─── Restart Button ───
   dom.restartBtn.addEventListener('click', () => {
     resetTest();
-    dom.restartBtn.blur();
+    setTimeout(() => dom.restartBtn.blur(), 0);
   });
 
 
 
-  // ─── Focus Management ───
-  // Keep focus on the document so keystrokes are captured
-  // and close custom dropdowns if clicked outside
+  // ─── Focus Management (dropdown close on outside click) ───
+  // Note: focus is now managed by the focusTrap element above
   document.addEventListener('click', (e) => {
-    // Don't steal focus from buttons
     if (dom.difficultyOptions && !dom.difficultyOptions.classList.contains('select-hide') && !e.target.closest('#difficultyCustomSelect')) {
       dom.difficultyOptions.classList.add('select-hide');
       dom.difficultySelected.classList.remove('select-arrow-active');
@@ -1154,6 +1219,8 @@
       applyTheme('light');
     }
     resetTest();
+    // Lock focus to the hidden input trap immediately on start
+    setTimeout(lockFocus, 0);
   }
 
   init();
