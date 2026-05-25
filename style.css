@@ -356,6 +356,7 @@ body::after {
   justify-content: space-between;
   align-items: center;
   transition: var(--transition-normal);
+  white-space: nowrap;
 }
 
 .select-selected:hover {
@@ -393,6 +394,7 @@ body::after {
   padding: 8px 14px;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
 }
 
 .select-items div:hover, .same-as-selected {
@@ -1154,3 +1156,8 @@ body::after {
 .keyboard {
   animation: fadeInUp 0.6s ease-out 0.15s both;
 }
+
+
+/* Volume Slider */
+.volume-slider { width: 100%; margin: 0; accent-color: var(--accent-primary); cursor: pointer; }
+.volume-wrapper:hover { background: transparent !important; cursor: default; }

@@ -62,6 +62,36 @@
               <div data-value="pro">Pro</div>
             </div>
           </div>
+
+          <div class="custom-select" id="soundCustomSelect" style="min-width: 210px;">
+            <div class="select-selected" id="soundSelected" style="display: flex; align-items: center; gap: 6px;">
+              <svg class="sound-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+                <path d="M9 9v6a3 3 0 0 0 3 3h0a3 3 0 0 0 3-3v-2"></path>
+                <path d="M5 10v4a7 7 0 0 0 14 0v-4"></path>
+              </svg>
+              Mute
+            </div>
+            <div class="select-items select-hide" id="soundOptions">
+              <div data-value="mute" class="same-as-selected">Mute</div>
+              <div data-value="redink">Gateron Red Inks</div>
+              <div data-value="cream">NovelKeys Creams</div>
+              <div data-value="holypanda">Holy Pandas</div>
+              <div data-value="alpaca">Alpacas</div>
+              <div data-value="turquoise">Turquoise Tealios</div>
+              <div data-value="blackink">Gateron Black Inks</div>
+              <div data-value="mxblack">Cherry MX Blacks</div>
+              <div data-value="mxbrown">Cherry MX Browns</div>
+              <div data-value="mxblue">Cherry MX Blues</div>
+              <div data-value="boxnavy">Kailh Box Navies</div>
+              <div data-value="buckling">Buckling Spring</div>
+              <div data-value="bluealps">SKCM Blue Alps</div>
+              <div data-value="topre">Topre</div>
+              <div class="volume-wrapper" data-ignore="true" style="padding: 10px 16px; border-top: 1px solid var(--border-color); cursor: default;">
+                <input type="range" id="volumeSlider" min="0" max="100" value="50" class="volume-slider">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -4,6 +4,7 @@ import { WORD_BANKS } from './data.js';
 import { drawChart } from './chart.js';
 import { updateLiveStats, animateValue, flashTimer } from './ui.js';
 import { highlightKey } from './keyboard.js';
+import { playTypingSound } from './audio.js';
 
 export function generateText(wordCount) {
   let bank = WORD_BANKS[state.language];
@@ -262,7 +263,7 @@ export function resetTest() {
   renderText();
 }
 
-export function handleTypingInput(key) {
+export function handleTypingInput(key, isRepeat = false) {
   if (state.isFinished) return;
 
   if (!state.isRunning && !state.isFinished) {
@@ -288,6 +289,10 @@ export function handleTypingInput(key) {
     state.charElements[state.currentIndex].classList.add('wrong');
     state.wrongCount++;
     state.currentWordHasError = true;
+  }
+  
+  if (!isRepeat) {
+    playTypingSound(key === ' ' ? ' ' : key);
   }
 
   state.totalTyped++;

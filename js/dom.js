@@ -21,6 +21,10 @@ export const dom = {
   difficultyCustomSelect: document.getElementById('difficultyCustomSelect'),
   difficultySelected: document.getElementById('difficultySelected'),
   difficultyOptions: document.getElementById('difficultyOptions'),
+  soundCustomSelect: document.getElementById('soundCustomSelect'),
+  soundSelected: document.getElementById('soundSelected'),
+  soundOptions: document.getElementById('soundOptions'),
+  volumeSlider: document.getElementById('volumeSlider'),
   speedBadge: document.getElementById('speedBadge'),
   themeToggle: document.getElementById('themeToggle'),
 };
