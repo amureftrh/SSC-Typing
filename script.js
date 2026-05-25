@@ -934,8 +934,8 @@
 
   // ─── Keyboard Event Listeners ───
   document.addEventListener('keydown', (e) => {
-    // Prevent default for space, tab to avoid page scrolling
-    if (e.code === 'Space' || e.code === 'Tab') {
+    // Prevent default for space, tab to avoid page scrolling, and backspace to avoid navigation
+    if (e.code === 'Space' || e.code === 'Tab' || e.code === 'Backspace') {
       e.preventDefault();
     }
 
@@ -1061,6 +1061,7 @@
       state.duration = parseInt(btn.dataset.time, 10);
     }
     resetTest();
+    btn.blur();
   });
 
   // ─── Custom Difficulty Dropdown ───
@@ -1096,11 +1097,13 @@
 
     state.language = btn.dataset.lang;
     resetTest();
+    btn.blur();
   });
 
   // ─── Restart Button ───
   dom.restartBtn.addEventListener('click', () => {
     resetTest();
+    dom.restartBtn.blur();
   });
 
 
