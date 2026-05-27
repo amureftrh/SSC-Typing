@@ -87,66 +87,65 @@
               <div data-value="buckling">Buckling Spring</div>
               <div data-value="bluealps">SKCM Blue Alps</div>
               <div data-value="topre">Topre</div>
-              <div class="volume-wrapper" data-ignore="true" style="padding: 10px 16px; border-top: 1px solid var(--border-color); cursor: default;">
+              <div class="volume-wrapper" data-ignore="true" style="padding: 10px 16px; border-top: var(--card-border); cursor: default;">
                 <input type="range" id="volumeSlider" min="0" max="100" value="50" class="volume-slider">
               </div>
             </div>
           </div>
-        </div>
       </div>
+    </header>
 
-      <div class="stats-bar" id="statsBar">
+    <div class="stats-bar" id="statsBar">
         <div class="stat-card" id="statTimer">
-          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="13" r="8" />
             <path d="M12 9v4l2 2" />
             <path d="M5 3L2 6" />
             <path d="M22 6l-3-3" />
             <path d="M12 2v2" />
           </svg>
+          <span class="stat-divider"></span>
           <div class="stat-info relative">
             <span class="stat-value" id="timerDisplay">30</span>
-            <span class="stat-label">Waktu</span>
+            <span class="stat-label">waktu</span>
             <span class="speed-badge hidden" id="speedBadge">1x</span>
           </div>
         </div>
         <div class="stat-card" id="statWpm">
-          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
           </svg>
+          <span class="stat-divider"></span>
           <div class="stat-info">
             <span class="stat-value" id="wpmDisplay">0</span>
-            <span class="stat-label">WPM</span>
+            <span class="stat-label">wpm</span>
           </div>
         </div>
         <div class="stat-card" id="statAccuracy">
-          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10" />
             <circle cx="12" cy="12" r="6" />
             <circle cx="12" cy="12" r="2" />
           </svg>
+          <span class="stat-divider"></span>
           <div class="stat-info">
             <span class="stat-value" id="accuracyDisplay">100%</span>
-            <span class="stat-label">Akurasi</span>
+            <span class="stat-label">akurasi</span>
           </div>
         </div>
         <div class="stat-card" id="statChars">
-          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="4 7 4 4 20 4 20 7" />
             <line x1="9" y1="20" x2="15" y2="20" />
             <line x1="12" y1="4" x2="12" y2="20" />
           </svg>
+          <span class="stat-divider"></span>
           <div class="stat-info">
             <span class="stat-value" id="charsDisplay">0/0</span>
-            <span class="stat-label">Karakter</span>
+            <span class="stat-label">karakter</span>
           </div>
         </div>
-      </div>
-    </header>
+    </div>
 
     <main class="typing-area" id="typingArea">
       <div class="text-display-wrapper">
@@ -158,26 +157,27 @@
 
     <section class="result-section" id="resultSection">
       
-      <div class="result-stats-row">
-        <div class="result-hero">
-          <span class="result-hero-value" id="resultWpm">0</span>
-          <span class="result-hero-label">WPM</span>
+      <div class="result-hero-block">
+        <span class="result-hero-label">wpm</span>
+        <span class="result-hero-value" id="resultWpm">0</span>
+      </div>
+
+      <div class="result-cards-grid">
+        <div class="result-card">
+          <span class="result-card-label">akurasi</span>
+          <span class="result-card-value result-val-accent" id="resultAccuracy">0%</span>
         </div>
-        <div class="result-detail">
-          <span class="result-detail-value" id="resultAccuracy">0%</span>
-          <span class="result-detail-label">Akurasi</span>
+        <div class="result-card">
+          <span class="result-card-label">benar</span>
+          <span class="result-card-value result-val-correct" id="resultCorrect">0</span>
         </div>
-        <div class="result-detail">
-          <span class="result-detail-value result-val-correct" id="resultCorrect">0</span>
-          <span class="result-detail-label">Benar</span>
+        <div class="result-card">
+          <span class="result-card-label">salah</span>
+          <span class="result-card-value result-val-wrong" id="resultWrong">0</span>
         </div>
-        <div class="result-detail">
-          <span class="result-detail-value result-val-wrong" id="resultWrong">0</span>
-          <span class="result-detail-label">Salah</span>
-        </div>
-        <div class="result-detail">
-          <span class="result-detail-value" id="resultTime">0s</span>
-          <span class="result-detail-label">Waktu</span>
+        <div class="result-card">
+          <span class="result-card-label">waktu</span>
+          <span class="result-card-value" id="resultTime">0s</span>
         </div>
       </div>
 
@@ -193,12 +193,12 @@
             </span>
           </div>
         </div>
-        <canvas id="resultChart" width="900" height="260"></canvas>
+        <canvas id="resultChart" width="800" height="200"></canvas>
       </div>
 
       <div class="result-actions">
         <button class="restart-btn" id="restartBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
             <polyline points="23 4 23 10 17 10" />
             <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
           </svg>

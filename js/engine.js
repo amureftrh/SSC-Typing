@@ -153,6 +153,8 @@ export function startTimer() {
 }
 
 export function endTest() {
+  if (state.isFinished) return;
+  
   clearInterval(state.timerInterval);
   state.isRunning = false;
   state.isFinished = true;
@@ -190,9 +192,11 @@ export function showResults() {
   animateValue(dom.resultWrong, 0, state.wrongCount, 800);
   animateValue(dom.resultTime, 0, Math.round(elapsed), 800, 's');
 
-  requestAnimationFrame(() => {
-    drawChart();
-  });
+  setTimeout(() => {
+    requestAnimationFrame(() => {
+      drawChart();
+    });
+  }, 50);
 }
 
 export function finalizeCurrentWord() {

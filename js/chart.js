@@ -20,6 +20,7 @@ export function drawChart() {
   const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
 
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
   const colors = {
     line: '#8b6cff',
     lineLight: '#a78bfa',
@@ -27,10 +28,10 @@ export function drawChart() {
     fillBot: 'rgba(139, 108, 255, 0.03)',
     error: '#ff5c72',
     errorGlow: 'rgba(255, 92, 114, 0.35)',
-    grid: 'rgba(255, 255, 255, 0.06)',
-    axisLine: 'rgba(255, 255, 255, 0.1)',
-    label: 'rgba(255, 255, 255, 0.35)',
-    labelDim: 'rgba(255, 255, 255, 0.2)',
+    grid: isLight ? 'rgba(15, 23, 42, 0.06)' : 'rgba(255, 255, 255, 0.06)',
+    axisLine: isLight ? 'rgba(15, 23, 42, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+    label: isLight ? 'rgba(15, 23, 42, 0.55)' : 'rgba(255, 255, 255, 0.35)',
+    labelDim: isLight ? 'rgba(15, 23, 42, 0.35)' : 'rgba(255, 255, 255, 0.2)',
   };
 
   const pad = { top: 20, right: 20, bottom: 36, left: 52 };
